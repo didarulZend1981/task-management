@@ -105,6 +105,16 @@ class TaskController extends Controller
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
 
+     public function show(Task $task){
+       
+        
+        if (request()->wantsJson()) { 
+            return response()->json(['task' => $task]); 
+        }
+             
+            return view('tasks.show', compact('task'));
+    }
+
     public function destroy(Task $task){
         $task->delete();
         if (request()->wantsJson()) { return response()->json(
